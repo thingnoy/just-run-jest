@@ -21,7 +21,17 @@
         "mac": "ctrl+option+j",
         "when": "resourceFilename =~ /\\.(spec|test|tests)\\.[tj]sx?$/"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "just-run-jest",
+      "properties": {
+        "just-run-jest.runCommand": {
+          "type": "string",
+          "default": "",
+          "description": "Custom the command to run. The $testFile and $collectFrom in command will be corretly replaced. For example, npm test -- \"$testFile\" \"--coverage\" \"--collectCoverageFrom=$collectFrom\""
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
