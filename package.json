@@ -8,6 +8,11 @@
     "url": "https://github.com/thingnoy/just-run-jest.git"
   },
   "license": "MIT",
+  "keywords": [
+    "jest",
+    "coverage"
+  ],
+  "publisher": "thingnoy",
   "engines": {
     "vscode": "^1.89.0"
   },
