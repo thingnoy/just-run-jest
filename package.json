@@ -7,7 +7,7 @@
     "vscode": "^1.89.0"
   },
   "categories": [
-    "Other"
+    "Testing"
   ],
   "activationEvents": [
     "onCommand:just-run-jest.run"
