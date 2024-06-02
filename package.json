@@ -3,6 +3,11 @@
   "displayName": "just-run-jest",
   "description": "run jest for current file",
   "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thingnoy/just-run-jest.git"
+  },
+  "license": "MIT",
   "engines": {
     "vscode": "^1.89.0"
   },
