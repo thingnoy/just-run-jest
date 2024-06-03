@@ -1,3 +1,11 @@
+## [0.0.1](https://github.com/thingnoy/just-run-jest/compare/undefined...v0.0.1) (2024-06-03)
+
+### Fixes & improvements
+* fix: worng release.mjs path ([6b48c12](https://github.com/thingnoy/just-run-jest/commit/6b48c1250695fbb99394ce80540f61ed736dc251))
+* fix: can't run command ([2ac7679](https://github.com/thingnoy/just-run-jest/commit/2ac7679d31255798d9dc9230f23b99dd7603bdda))
+* fix: Missing publisher name ([be18aaf](https://github.com/thingnoy/just-run-jest/commit/be18aafaf78beff1e3eb90766baf49a75ccbe1de))
+* fix: 'repository' field is missing ([e99cd4b](https://github.com/thingnoy/just-run-jest/commit/e99cd4b6c9a6ae43d68bb43df5295c3f88ee46d5))
+
 # Change Log
 
 All notable changes to the "just-run-jest" extension will be documented in this file.
