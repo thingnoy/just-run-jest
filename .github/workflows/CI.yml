@@ -34,3 +34,8 @@ jobs:
           VERBOSE: ${{ secrets.VERBOSE }}
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           PUSH_MAJOR_TAG: true
+
+      - name: Publish VS Code Extension
+        uses: HaaLeo/publish-vscode-extension@v1.6.2
+        with:
+          pat: ${{ secrets.VSCE_TOKEN }}
