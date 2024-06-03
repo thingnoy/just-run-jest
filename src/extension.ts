@@ -4,7 +4,9 @@ const fs = require('fs');
 export function activate(context: vscode.ExtensionContext) {
 	let disposable = vscode.commands.registerCommand("just-run-jest.run", () => {
 		const document = vscode.window.activeTextEditor?.document;
-		if (!document) return;
+		if (!document) {
+			return;
+		}
 
 		const workspaceFolder = vscode.workspace.getWorkspaceFolder(document.uri);
 		const testFileExtension = document.fileName.match(/\.([tj]sx?)$/)?.[0] || ".js";
