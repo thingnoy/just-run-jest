@@ -1,39 +1,35 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
+const fs = require('fs');
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "just-run-jest" is now active!');
-
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
 	let disposable = vscode.commands.registerCommand("just-run-jest.run", () => {
-		const decument = vscode.window.activeTextEditor?.document;
-		if (!decument) { return; }
+		const document = vscode.window.activeTextEditor?.document;
+		if (!document) return;
 
-		const workspaceFolder = vscode.workspace.getWorkspaceFolder(decument.uri);
-		if (!workspaceFolder) { return; }
+		const workspaceFolder = vscode.workspace.getWorkspaceFolder(document.uri);
+		const testFileExtension = document.fileName.match(/\.([tj]sx?)$/)?.[0] || ".js";
+		const testFilePath = workspaceFolder
+			? document.fileName.replace(workspaceFolder.uri.fsPath, "")
+			: document.fileName;
 
-		const testFilePath = decument.fileName.replace(workspaceFolder.uri.fsPath, "");
+		let collectFromPath = testFilePath.replace(/\.(spec|test)\.[tj]sx?$/, testFileExtension);
 
-		const collectFromPath = testFilePath.replace(/\.(test,tests,spec)(\.[tj]s)x?$/, '$2/*');
+		const fullPath = workspaceFolder
+			? `${workspaceFolder.uri.fsPath}/${collectFromPath}`
+			: collectFromPath;
 
-		const terminal =
-			vscode.window.terminals.find((item) => item.name === "jest-coverage") ||
-			vscode.window.createTerminal("jest-coverage");
+		if (!fs.existsSync(fullPath)) {
+			collectFromPath = `index${testFileExtension}`;
+		}
+
+		const terminal = vscode.window.terminals.find(item => item.name === "jest-coverage")
+			|| vscode.window.createTerminal("jest-coverage");
 
 		const { runCommand } = vscode.workspace.getConfiguration("just-run-jest");
 
-		const command = runCommand ?
-			runCommand
-				.replace('$testFile', testFilePath)
-				.replace('$collectFrom', collectFromPath)
-			: `npx jest ${testFilePath} --silent --coverage --collectCoverageFrom=${collectFromPath}`;
+		const command = runCommand
+			? runCommand.replace('$testFile', testFilePath).replace('$collectFrom', collectFromPath)
+			: `node_modules/.bin/jest ${testFilePath} --silent --coverage --collectCoverageFrom="${collectFromPath}"`;
 
 		terminal.show();
 		terminal.sendText(command);
@@ -42,5 +38,4 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(disposable);
 }
 
-// This method is called when your extension is deactivated
 export function deactivate() { }

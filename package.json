@@ -28,8 +28,8 @@
       {
         "command": "just-run-jest.run",
         "key": "ctrl+alt+j",
-        "mac": "ctrl+option+j",
-        "when": "resourceFilename =~ /\\.(spec|test|tests)\\.[tj]sx?$/"
+        "mac": "ctrl+alt+j",
+        "when": "resourceFilename =~ /\\.(spec|test)\\.[tj]sx?$/"
       }
     ],
     "configuration": {
