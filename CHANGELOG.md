@@ -1,3 +1,8 @@
+## [0.0.3](https://github.com/thingnoy/just-run-jest/compare/v0.0.2...v0.0.3) (2024-06-04)
+
+### Fixes & improvements
+* fix: collectFromPath ([26b56c4](https://github.com/thingnoy/just-run-jest/commit/26b56c46597793b425cc769d07438c0e65f1cedc))
+
 ## [0.0.2](https://github.com/thingnoy/just-run-jest/compare/v0.0.1...v0.0.2) (2024-06-03)
 
 ### Fixes & improvements
