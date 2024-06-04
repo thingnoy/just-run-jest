@@ -1,5 +1,4 @@
 # just-run-jest
-
 This extension is a simple extension that allows you to run jest tests from the command palette.
 
 ## Features
