@@ -14,6 +14,7 @@
     "coverage"
   ],
   "publisher": "thingnoy",
+  "icon": "images/icon.png",
   "engines": {
     "vscode": "^1.89.0"
   },

@@ -6,7 +6,7 @@ This extension is a simple extension that allows you to run jest tests from the 
 
 - Quickly run Jest tests with the shortcut `ctrl+alt+j`.
 
-![Demo](Screenshot.gif)
+![Demo](images/screenshot.gif)
 
 ## Extension Settings
 
