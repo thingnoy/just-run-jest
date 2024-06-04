@@ -1,43 +1,41 @@
-import * as vscode from "vscode";
-const fs = require('fs');
+import * as vscode from 'vscode';
+import * as fs from 'fs';
 
 export function activate(context: vscode.ExtensionContext) {
-	let disposable = vscode.commands.registerCommand("just-run-jest.run", () => {
-		const document = vscode.window.activeTextEditor?.document;
-		if (!document) {
-			return;
-		}
+  const disposable = vscode.commands.registerCommand('just-run-jest.run', () => {
+    const document = vscode.window.activeTextEditor?.document;
+    if (!document) return;
 
-		const workspaceFolder = vscode.workspace.getWorkspaceFolder(document.uri);
-		const testFileExtension = document.fileName.match(/\.([tj]sx?)$/)?.[0] || ".js";
-		const testFilePath = workspaceFolder
-			? document.fileName.replace(workspaceFolder.uri.fsPath, "")
-			: document.fileName;
+    const workspaceFolder = vscode.workspace.getWorkspaceFolder(document.uri);
+    const testFilePath = workspaceFolder
+      ? document.fileName.replace(workspaceFolder.uri.fsPath, '').replace(/^\//, '')
+      : document.fileName;
 
-		let collectFromPath = testFilePath.replace(/\.(spec|test)\.[tj]sx?$/, testFileExtension);
+    const testFileExtension = document.fileName.match(/\.([tj]sx?)$/)?.[0] || '.js';
+    const testFileFolder = testFilePath.replace(/[^/]*$/, '');
 
-		const fullPath = workspaceFolder
-			? `${workspaceFolder.uri.fsPath}/${collectFromPath}`
-			: collectFromPath;
+    let collectFromPath = testFilePath.replace(/\.(spec|test)\.[tj]sx?$/, testFileExtension);
+    const fullPath = workspaceFolder ? `${workspaceFolder.uri.fsPath}/${collectFromPath}` : collectFromPath;
+    if (!fs.existsSync(fullPath)) {
+      collectFromPath = `${testFileFolder}index${testFileExtension}`;
+    }
 
-		if (!fs.existsSync(fullPath)) {
-			collectFromPath = `index${testFileExtension}`;
-		}
+    const terminal =
+      vscode.window.terminals.find((item) => item.name === 'jest-coverage') ||
+      vscode.window.createTerminal('jest-coverage');
 
-		const terminal = vscode.window.terminals.find(item => item.name === "jest-coverage")
-			|| vscode.window.createTerminal("jest-coverage");
+    const { runCommand } = vscode.workspace.getConfiguration('just-run-jest');
+    const command = (
+      runCommand || `node_modules/.bin/jest "$testFile" --silent --coverage --collectCoverageFrom="$collectFrom"`
+    )
+      .replace('$testFile', testFilePath)
+      .replace('$collectFrom', collectFromPath);
 
-		const { runCommand } = vscode.workspace.getConfiguration("just-run-jest");
+    terminal.show();
+    terminal.sendText(command);
+  });
 
-		const command = runCommand
-			? runCommand.replace('$testFile', testFilePath).replace('$collectFrom', collectFromPath)
-			: `node_modules/.bin/jest ${testFilePath} --silent --coverage --collectCoverageFrom="${collectFromPath}"`;
-
-		terminal.show();
-		terminal.sendText(command);
-	});
-
-	context.subscriptions.push(disposable);
+  context.subscriptions.push(disposable);
 }
 
-export function deactivate() { }
+export function deactivate() {}
