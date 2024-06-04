@@ -2,7 +2,7 @@
   "name": "just-run-jest",
   "displayName": "just-run-jest",
   "description": "run jest for current file",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "private": true,
   "repository": {
     "type": "git",

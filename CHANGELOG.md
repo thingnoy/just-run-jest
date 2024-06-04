@@ -1,3 +1,8 @@
+## [0.0.4](https://github.com/thingnoy/just-run-jest/compare/v0.0.3...v0.0.4) (2024-06-04)
+
+### Fixes & improvements
+* fix: document ([e0198c0](https://github.com/thingnoy/just-run-jest/commit/e0198c0e60da2d9cfed0522b118444d2f479d641))
+
 ## [0.0.3](https://github.com/thingnoy/just-run-jest/compare/v0.0.2...v0.0.3) (2024-06-04)
 
 ### Fixes & improvements
